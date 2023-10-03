@@ -1,4 +1,4 @@
-def get_model():
+def u_net():
     # optimizer =
     # loss_metric = 
     # metrics = 
