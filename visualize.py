@@ -2,13 +2,13 @@ def visualize_data(point_cloud, labels):
   """
   Visualize 3D point clouds
   """
-    df = pd.DataFrame(
-        data={
-            "x": point_cloud[:, 0],
-            "y": point_cloud[:, 1],
-            "z": point_cloud[:, 2],
-            "label": labels,
-        }
+  df = pd.DataFrame(
+      data={
+          "x": point_cloud[:, 0],
+          "y": point_cloud[:, 1],
+          "z": point_cloud[:, 2],
+          "label": labels,
+      }
     )
     fig = plt.figure(figsize=(6, 10))
     ax = plt.axes(projection="3d")
@@ -16,7 +16,7 @@ def visualize_data(point_cloud, labels):
         c_df = df[df["label"] == label]
         try:
             ax.scatter(
-                c_df["x"], c_df["y"], c_df["z"], label=label, alpha=1, c=color[index], 
+                c_df["x"], c_df["y"], c_df["z"], label=label, alpha=1, c=COLOR[index], 
             )
         except IndexError:
             pass
