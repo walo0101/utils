@@ -1,3 +1,15 @@
+def iou_coef(y_true, y_pred, smooth=1.):
+  intersection = backend.sum(backend.abs(y_true * y_pred))
+  union = backend.sum(y_true) + backend.sum(y_pred)-intersection
+  iou = backend.mean((intersection + smooth) / (union + smooth))
+  return iou
+    
+def dice_coef(y_true, y_pred):
+    y_true_f = backend.flatten(y_true)
+    y_pred_f = backend.flatten(y_pred)
+    intersection = backend.sum(y_true_f * y_pred_f)
+    return (2. * intersection + smooth) / (backend.sum(y_true_f) + backend.sum(y_pred_f) + smooth)
+    
 def accuracy(y_true, y_pred):
     return np.mean(np.equal(np.argmax(y_pred, axis=-1), np.argmax(y_true, axis=-1)))
 
