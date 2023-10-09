@@ -22,3 +22,8 @@ for mpath in sorted(glob.glob(f'{mask_path}/*/**/***/', recursive=True)):
     for j in range(flen):
         dm = pydicom.read_file(mask_list[j])
         y.append(dm.pixel_array)
+
+import pandas as pd
+# read csv file
+dataframe = pd.read_csv("file.csv", header=None, engine='python') #option header=None
+data = dataframe.values
