@@ -27,3 +27,10 @@ import pandas as pd
 # read csv file
 dataframe = pd.read_csv("file.csv", header=None, engine='python') #option header=None
 data = dataframe.values
+
+#%% read h5df file
+import h5py
+with h5py.File('node.hdf5', 'r') as f1:
+    print(list(f1.keys()))  # print list of root level objects
+    node = f1['node']  
+    node = node[:]
