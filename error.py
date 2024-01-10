@@ -45,3 +45,12 @@ def absolute_percentage_error_std(y_true, y_pred):
 
 mse = tf.keras.metrics.mean_squared_error(y_true, y_pred)
 rmse = np.sqrt(mse)
+
+rmse = math.sqrt(mean_squared_error(b_pred, bU[1:]))
+print('Train Score: %.8f RMSE' % (rmse))
+
+#%% Pearson correlation coefficient
+r1 = np.sum((bU[1:] - np.mean(bU[1:]))*(b_pred - np.mean(b_pred)))
+r2 = np.sqrt(np.sum(np.square(bU[1:] - np.mean(bU[1:]))))*np.sqrt(np.sum(np.square(b_pred - np.mean(b_pred))))
+b_train = r1/r2
+print('pearson_train= ', b_train)
