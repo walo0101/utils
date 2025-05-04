@@ -22,3 +22,14 @@ for i, data in enumerate(val_gt, 0):
   for j in range(0,len(data)):
     val_pos.append(data[j].pos)
     val_y.append(data[j].y)
+
+
+iou_val = []
+for i in range(0,len(pred)):
+  iou = compute_iou(pred[i], val_y[i])
+  iou_val.append(iou.item())
+print(np.mean(iou_val))
+print(np.std(iou_val))
+print(np.max(iou_val))
+print(np.min(iou_val))
+print(np.argmin(iou_val))
