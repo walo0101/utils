@@ -10,6 +10,27 @@ def dice_coef(y_true, y_pred):
     intersection = backend.sum(y_true_f * y_pred_f)
     return (2. * intersection + smooth) / (backend.sum(y_true_f) + backend.sum(y_pred_f) + smooth)
     
+#%% xuli torch dice not binary mask
+def dice_coefficient_multiclass(preds: torch.Tensor, targets: torch.Tensor, num_classes: int, smooth: float = 1e-6, ignore_index: int = None) -> torch.Tensor:
+    # If preds are logits or probs → convert to class indices
+    if preds.ndim == targets.ndim + 1:
+        preds = torch.argmax(preds, dim=1)  # (N, H, W)
+    
+    dice_scores = []
+    for cls in range(num_classes):
+        if ignore_index is not None and cls == ignore_index:
+            continue
+        pred_cls = (preds == cls).float()
+        target_cls = (targets == cls).float()
+
+        intersection = (pred_cls * target_cls).sum()
+        union = pred_cls.sum() + target_cls.sum()
+
+        dice = (2. * intersection + smooth) / (union + smooth)
+        #dice = ( intersection + smooth) / (union - intersection + smooth)
+        dice_scores.append(dice)
+    return torch.tensor(dice_scores).mean()  # shape: (num_classes,)
+
 def accuracy(y_true, y_pred):
     return np.mean(np.equal(np.argmax(y_pred, axis=-1), np.argmax(y_true, axis=-1)))
 
